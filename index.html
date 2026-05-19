@@ -301,11 +301,9 @@
         <p>makanan & minuman • halal • enak</p>
     </div>
 
-    <!-- MAKANAN -->
     <div class="section-title">🍚 MAKANAN</div>
     <div class="menu-grid" id="menuMakanan"></div>
 
-    <!-- MINUMAN -->
     <div class="section-title">🥤 MINUMAN</div>
     <div class="menu-grid" id="menuMinuman"></div>
 
@@ -321,7 +319,6 @@
     </div>
 </div>
 
-<!-- Modal QRIS -->
 <div id="qrisModal" class="modal">
     <div class="modal-content">
         <h3>🔗 QRIS Pembayaran</h3>
@@ -332,7 +329,6 @@
     </div>
 </div>
 
-<!-- Modal Upload Bukti -->
 <div id="proofModal" class="modal">
     <div class="modal-content">
         <h3>📤 Upload Bukti Transfer</h3>
@@ -344,12 +340,12 @@
 </div>
 
 <script>
-    // ========== KONFIGURASI ==========
+    
     const QRIS_LINK = "https://cdn.phototourl.com/free/2026-05-18-70eab518-83c0-4d4f-87ee-4e98a72fbc31.jpg";
-    const NO_WA = "6283180072584";   // +62 83180072584
+    const NO_WA = "6283180072584";   
     const NO_DANA = "6282381531460";
 
-    // DATA MENU
+    
     const makanan = [
         { id: 1, name: "Nasi Goreng", price: 12000, emoji: "🍚", desc: "Nasi goreng spesial" },
         { id: 2, name: "Mi Goreng", price: 10000, emoji: "🍝", desc: "Mi goreng telur" },
@@ -530,7 +526,7 @@
         });
     }
 
-    // QRIS Modal
+    
     const qrisModal = document.getElementById('qrisModal');
     window.openQrisModal = function() {
         if(getTotal() === 0) { alert("Keranjang masih kosong!"); return; }
@@ -541,7 +537,7 @@
     window.closeQrisModal = () => qrisModal.classList.remove('active');
     document.getElementById('qrisPayBtn').addEventListener('click', openQrisModal);
 
-    // Kirim ke WA (tanpa bukti)
+    
     document.getElementById('waConfirmBtn').addEventListener('click', () => {
         if(cart.length === 0) { alert("Keranjang kosong."); return; }
         let pesan = getOrderDetailText() + "\n\n✅ Pesanan dikonfirmasi. Terima kasih.";
@@ -553,7 +549,7 @@
         alert(`Pesanan terkirim ke WA ${NO_WA} & ${NO_DANA}`);
     });
 
-    // Modal Bukti Transfer
+
     const proofModal = document.getElementById('proofModal');
     window.openProofModal = () => {
         if(cart.length === 0) { alert("Keranjang kosong!"); return; }
@@ -562,7 +558,7 @@
     window.closeProofModal = () => proofModal.classList.remove('active');
     document.getElementById('proofBtn').addEventListener('click', openProofModal);
 
-    // Kirim bukti + order ke WA
+    
     document.getElementById('sendProofBtn').addEventListener('click', () => {
         const fileInput = document.getElementById('buktiImage');
         const file = fileInput.files[0];
@@ -575,8 +571,7 @@
             let orderText = getOrderDetailText();
             orderText += "\n\n📸 *BUKTI TRANSFER TERLAMPIR*\nSilakan cek lampiran gambar.";
             let encodedText = encodeURIComponent(orderText);
-            // WA tidak bisa langsung kirim gambar via link data url, jadi kita kasih instruksi + buka WA dengan teks
-            // User akan kirim manual gambar via WA setelah chat terbuka
+            
             window.open(`https://wa.me/${NO_WA}?text=${encodedText}`, '_blank');
             setTimeout(() => {
                 window.open(`https://wa.me/${NO_DANA}?text=${encodedText}`, '_blank');
